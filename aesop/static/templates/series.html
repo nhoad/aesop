@@ -1,0 +1,21 @@
+<div ng-include="'/static/templates/breadcrumbs.html'"></div>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="season in seasons">
+        <span>
+          <div class="btn-group pull-right" role="group">
+            <a ng-click="play(season.season)" role="button" tooltip-placement="left" tooltip="Play Season" class="btn btn-info"><i class="fa fa-play"></i></a>
+            <a ng-click="queue(season.season)" role="button" tooltip-placement="left" tooltip="Queue Season" class="btn btn-info"><i class="fa fa-plus"></i></a>
+          </div>
+
+          <a href="#/series/{{ ::media_id }}/{{ ::season.season }}">Season {{ ::season.season }}</a>
+          <br>
+          <span ng-if="season.watched" tooltip-placement="right" tooltip="Watched" class="label label-success"><i class="fa fa-check"></i></span>
+          <br>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>

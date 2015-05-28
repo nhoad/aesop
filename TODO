@@ -1,0 +1,52 @@
+- Tests, lots of tests. Particularly for the processor and the player backend.
+
+Web UI
+======
+- Advanced search? e.g. watched, specifying categories
+- Auto refresh UI when shows update?
+- /modify/series/<id>
+- Playlist?
+- Season toggleWatched
+- Settings, make add new source not ugly
+- Settings, validation
+- /modify/movie/<id>, validation
+- Nice slider
+- Position slider
+- Player needs a lot of love for appearance and functionality
+- Kick off update from UI.
+- Figure out why client websockets are locking up
+- Make ws:// URIs relative
+- When subtitles are downloading, show this fact
+
+Subtitle downloader
+===================
+- support multicd movies?
+- support episodes
+- Trim out the stupid "Shop this show's fashion on LookLive.com" garbage from
+  downloaded subtitles.
+- Support thesubdb and more
+- get proper user agent
+
+Player
+======
+- Figure out if there's anything distinguishing about streams with repeating
+  names (e.g. channels and stuff) and display that in audio choices
+
+
+Processor
+=========
+- More robust
+- More logging
+- Make processor respect timer option
+- More plugin-based architecture, for adding new scrapers?
+- Make service based?
+
+Misc
+====
+- Deluge integration?
+- Expose videos that aren't in the library
+- support nfs/ftp/cifs? CIFS & FTP looks nice and easy, mplayer supports them natively.
+  nfs could be supported by mounting sources under ~/.config/aesop/nfs/ I
+  suppose, though that's pretty unpleasant.
+- UI for the OMDB TSV dump, and support for pulling data out of it
+- UPnP server, specifically one that doesn't run so poorly.

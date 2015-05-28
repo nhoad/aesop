@@ -1,0 +1,39 @@
+<div ng-if="Player.now_playing" class="row">
+  <div class="col-xm-12">
+    <h1>{{ Player.now_playing }}</h1>
+  </div>
+</div>
+<div ng-if="Player.now_playing" class="row">
+  <div class="col-xm-12">
+    {{ Player.progress_text }}
+    <progressbar ng-model="Player.progress_percent"></progressbar>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xm-6">
+    {{ Player.volume }}
+    <input ng-show="Player.volume !== null" type="range" ng-model="Player.volume">
+
+    <form ng-if="Player.now_playing && !!Player.available_subtitles" class="form-horizontal">
+      <div class="input-group">
+        <label>
+          Subtitles
+          <select class="form-control" ng-options="choice.value as choice.display for choice in Player.available_subtitles" ng-change="changeSubtitles()" ng-model="Player.selected_subtitle">
+            <option value="">-- None --</option>
+          </select>
+        </label>
+      </div>
+
+      <div ng-if="Player.now_playing && !!Player.available_audio" class="input-group">
+        <label>
+          Audio
+          <select class="form-control" ng-options="choice.value as choice.display for choice in Player.available_audio" ng-change="changeAudio()" ng-model="selected_audio">
+            <option value="">-- None --</option>
+          </select>
+        </label>
+      </div>
+
+    </form>
+
+  </div>
+</div>

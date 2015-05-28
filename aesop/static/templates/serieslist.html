@@ -1,0 +1,17 @@
+<div ng-include="'/static/templates/breadcrumbs.html'"></div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="list-group">
+      <a href="#/series/{{ series.media_id }}" class="list-group-item" ng-repeat="series in seriesList" ng-show="([series.title, series.genres] | filter:search).length">
+        <span>
+          {{ ::series.title }} <span ng-if="series.year">({{ series.year }})</span>
+          <br>
+          <span ng-if="series.watched" tooltip-placement="right" tooltip="Completed" class="label label-success"><i class="fa fa-check"></i></span>
+          <span class="genre-list label label-warning" ng-repeat="genre in series.genres">{{ ::genre }}</span>
+          <br>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+</div>

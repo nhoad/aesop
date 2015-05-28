@@ -1,0 +1,33 @@
+/* display top-menu properly on mobile */
+.nav > li {
+  display: inline-block !important;
+}
+
+.ngrs-range-slider {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.genre-list {
+  margin-right: 3px;
+}
+
+body {
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+
+nav.navbar a {
+  cursor: pointer;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  min-height: 0;
+  margin-bottom: 0;
+  z-index: 5000;
+}

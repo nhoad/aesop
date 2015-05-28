@@ -1,0 +1,56 @@
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="movie-title">
+      Title
+    </label>
+    <div class="col-sm-6">
+      <ui-select ng-model="selectedMovie.selected" theme="bootstrap">
+        <ui-select-match placeholder="Select title...">
+          {{ movie.title }} - {{ movie.year }}
+        </ui-select-match>
+        <ui-select-choices
+          repeat="movie in movieSuggestions"
+          refresh="getIMDBSuggestions($select.search)"
+          refresh-delay="250">
+            {{ movie.title }} - {{ movie.year }}
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="movie-path" required>
+      Filepath
+    </label>
+    <div class="col-sm-6">
+      <input id="movie-path" class="form-control" placeholder="{{ movie.path }}" readonly>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="movie-year">
+      Year
+    </label>
+    <div class="col-sm-6">
+      <input type="number" id="movie-year" class="form-control" ng-model="movie.year" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="movie-genres">
+      Genres
+      <i tooltip-placement="bottom" tooltip="Retrieving genres" ng-show="genresLoading" class="fa fa-refresh"></i>
+    </label>
+    <div class="col-sm-6">
+      <!--input id="movie-genres" class="form-control" ng-model="movie.genres"-->
+      <ui-select multiple ng-model="movie.genres" theme="bootstrap" tagging="true" tagging-label="(New)">
+        <ui-select-match placeholder="Select genres...">{{$item}}</ui-select-match>
+        <ui-select-choices repeat="genre in genres | filter:$select.search">
+          {{genre}}
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+      <button ng-click="save()" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+    </div>
+  </div>
+</form>

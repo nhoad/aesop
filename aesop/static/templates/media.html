@@ -1,0 +1,27 @@
+<div ng-include="'/static/templates/breadcrumbs.html'"></div>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="file in media" ng-show="([file.title, file.genres] | filter:search).length">
+        <span>
+          <div class="btn-group pull-right" role="group">
+            <a ng-click="play(file.id)" role="button" tooltip-placement="left" tooltip="Play" class="btn btn-info"><i class="fa fa-play"></i></a>
+            <a ng-click="queue(file.id)" role="button" tooltip-placement="left" tooltip="Queue" class="btn btn-info"><i class="fa fa-plus"></i></a>
+            <a href="#/modify/{{ ::media_type }}/{{ ::file.id }}" role="button" tooltip-placement="left" tooltip="Modify" class="hidden-xs btn btn-info"><i class="fa fa-pencil"></i></a>
+
+            <a ng-click="toggleWatched(file.id, file)" role="button" tooltip-placement="left" tooltip="Set watched/unwatched" class="hidden-xs btn btn-info"><i class="fa" ng-class="{'fa-eye': !file.watched, 'fa-eye-slash': file.watched}"></i></a>
+          </div>
+
+          <!--add length here?-->
+          <span ng-if="file.title">{{ ::file.title }} ({{ ::file.year }})</span>
+          <span ng-if="file.episode">Episode {{ ::file.episode }}</span>
+          <br>
+          <span ng-if="file.watched" tooltip-placement="right" tooltip="Watched" class="label label-success"><i class="fa fa-check"></i></span>
+          <span class="hidden-xs genre-list label label-warning" ng-repeat="genre in file.genres">{{ ::genre }}</span>
+          <br>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>

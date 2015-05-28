@@ -1,0 +1,9 @@
+[Unit]
+Description=Aesop's player service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -m aesop.player
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Aesop's event service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -m aesop.events
+
+[Install]
+WantedBy=multi-user.target

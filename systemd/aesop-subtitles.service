@@ -1,0 +1,9 @@
+[Unit]
+Description=Aesop's subtitle retrieval service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -m aesop.subtitles
+
+[Install]
+WantedBy=multi-user.target

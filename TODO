@@ -25,7 +25,6 @@ Subtitle downloader
 - Trim out the stupid "Shop this show's fashion on LookLive.com" garbage from
   downloaded subtitles.
 - Support thesubdb and more
-- get proper user agent
 
 Player
 ======

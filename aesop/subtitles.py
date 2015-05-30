@@ -85,8 +85,7 @@ def from_opensubtitles(media_path, requested_language=None):
         server = ServerProxy('http://api.opensubtitles.org/xml-rpc')
         log.debug("Authenticating to opensubtitles")
 
-        # FIXME: get a real user agent
-        response = yield from server.LogIn('', '', 'eng', None)
+        response = yield from server.LogIn('', '', 'eng', 'aesop v0.1')
         token = response['token']
 
         searches.append({'moviehash': hash, 'moviebytesize': str(size)})

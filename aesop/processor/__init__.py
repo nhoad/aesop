@@ -314,9 +314,9 @@ def save_movie(lookup, path, genres):
 
 def save_episode(lookup, path, genres, source_type):
     try:
-        tvshow = TVShowEpisode.get(media_id=lookup.media_id)
+        tvshow = TVShow.get(media_id=lookup.media_id)
     except TVShow.DoesNotExist:
-        tvshow = TVShowEpisode.create(media_id=lookup.media_id, title=lookup.title, year=lookup.year, type=source_type)
+        tvshow = TVShow.create(media_id=lookup.media_id, title=lookup.title, year=lookup.year, type=source_type)
         if genres:
             tvshow.add_genres(genres)
     else:

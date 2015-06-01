@@ -2,6 +2,14 @@ var aesopApp = angular.module('aesopApp',
   ['ui.router', 'ngWebSocket', 'ui.bootstrap', 'ui.select', 'ngSanitize', 'ngTouch',
    'angular-growl']);
 
+function wsPath(resource) {
+    var loc = window.location, new_uri;
+    new_uri = "ws:";
+    new_uri += "//" + loc.host;
+    new_uri += loc.pathname + resource;
+    return new_uri;
+}
+
 aesopApp.factory('focus', function($timeout) {
   return function(id) {
     // timeout makes sure that it is invoked after any other event has been triggered.
@@ -83,14 +91,14 @@ var makeBreadcrumbs = function($http, seriesID, season) {
 
 aesopApp.factory('Player', function($websocket, growl) {
   var Player;
-  var socket = $websocket('ws://10.0.0.94/ws/remote/');
+  var socket = $websocket(wsPath('ws/remote/'));
 
   var reconnector;
   var reconnectWaitTime = 0.5;
   var reconnect = function() {
     growl.warning("Connection to server lost, reconnecting...", {ttl: 2000});
     var reconnector = setTimeout(function() {
-      socket = $websocket('ws://10.0.0.94/ws/remote/');
+      socket = $websocket(wsPath('ws/remote/'));
       socket.onOpen(function() {
         growl.success("Reconnected to server", {ttl: 2000});
         if (!!reconnector) {
@@ -204,14 +212,14 @@ aesopApp.controller('MainController', function($scope, $state, Player, growl, $w
   };
   $scope.Player = Player;
 
-  var socket = $websocket('ws://10.0.0.94/ws/events/');
+  var socket = $websocket(wsPath('ws/events/'));
 
   var reconnector;
   var reconnectWaitTime = 0.5;
   var reconnect = function() {
     console.log('reconnecting in ' + reconnectWaitTime + ' seconds');
     var reconnector = setTimeout(function() {
-      socket = $websocket('ws://10.0.0.94/ws/events/');
+      socket = $websocket(wsPath('ws/events/'));
       socket.onOpen(function() {
         console.log('successfully reconnected');
         if (!!reconnector) {

@@ -11,6 +11,7 @@ from aioxmlrpc.client import ServerProxy
 from logbook import Logger
 
 from aesop import isocodes, events
+from aesop.utils import set_log_level, setup_logging
 
 log = Logger('aesop.subtitles')
 
@@ -190,5 +191,7 @@ def main():
                 yield from events.broadcast('subtitle-downloaded', path=str(result), video_path=event.path, language=event.language)
 
 if __name__ == '__main__':
+    setup_logging('aesop.ui')
+    set_log_level('INFO')
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())

@@ -4,9 +4,9 @@ from collections import namedtuple
 
 import asyncio_redis
 import websockets
-
 from logbook import Logger
 
+from aesop.utils import setup_logging
 
 log = Logger('aesop.events')
 
@@ -151,6 +151,7 @@ def server(websocket, path):
 
 
 def main():
+    setup_logging('aesop.events')
     loop = asyncio.get_event_loop()
     loop.run_until_complete(websockets.serve(server, '0.0.0.0', 5001))
     log.info("Client event server started on port 5001")

@@ -15,7 +15,7 @@ from logbook import Logger
 
 from aesop import events, isocodes
 from aesop.models import TVShowEpisode, Movie, Config, TVShow, init
-from aesop.utils import set_log_level, get_language
+from aesop.utils import set_log_level, setup_logging, get_language
 
 log = Logger('aesop.player')
 
@@ -728,9 +728,10 @@ def broadcast_player_property(attribute, value):
 
 
 if __name__ == '__main__':
+    setup_logging('aesop.player')
+    set_log_level('INFO')
     init()
     server = Server()
-    set_log_level('INFO')
     asyncio.get_event_loop().run_until_complete(server.start())
     log.info("Player started on port 5002")
     asyncio.get_event_loop().run_forever()

@@ -139,6 +139,11 @@ def get(url, **kwargs):
     return r.wait_for()
 
 
+def setup_logging(name):
+    from logbook import SyslogHandler
+    SyslogHandler(name).push_application()
+
+
 def set_log_level(level):
     import logbook
     level = logbook.lookup_level(level)

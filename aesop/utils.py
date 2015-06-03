@@ -140,8 +140,9 @@ def get(url, **kwargs):
 
 
 def setup_logging(name):
-    from logbook import SyslogHandler
-    SyslogHandler(name).push_application()
+    from logbook import RotatingFileHandler
+    path = os.path.expanduser('~/.config/aesop/{}.log'.format(name))
+    RotatingFileHandler(path).push_application()
 
 
 def set_log_level(level):

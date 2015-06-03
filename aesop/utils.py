@@ -141,9 +141,13 @@ def get(url, **kwargs):
 
 
 def setup_logging(name, level):
-    from logbook import RotatingFileHandler, lookup_level
+    from logbook import NullHandler, RotatingFileHandler, lookup_level
     path = os.path.expanduser('~/.config/aesop/{}.log'.format(name))
     level = lookup_level(level)
+
+    # null handler to prevent logs unhandled from RotatingFileHandler going to
+    # stderr
+    NullHandler().push_application()
     RotatingFileHandler(path, level=level).push_application()
 
 

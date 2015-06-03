@@ -151,7 +151,7 @@ def server(websocket, path):
 
 
 def main():
-    setup_logging('aesop.events')
+    setup_logging('aesop.events', 'INFO')
     loop = asyncio.get_event_loop()
     loop.run_until_complete(websockets.serve(server, '0.0.0.0', 5001))
     log.info("Client event server started on port 5001")

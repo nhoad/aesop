@@ -5,7 +5,7 @@ import logbook
 from aesop.models import init, database_proxy, Config, Source
 from aesop.processor import catalog_videos
 from aesop import events
-from aesop.utils import set_log_level, setup_logging
+from aesop.utils import setup_logging
 
 log = logbook.Logger('aesop.processor')
 
@@ -18,11 +18,10 @@ parser.add_argument(
 options = parser.parse_args()
 
 try:
-    set_log_level(options.log_level)
+    setup_logging('aesop.processor', 'INFO')
 except LookupError:
     parser.error("--log-level must be one of CRITICAL, ERROR, WARNING, INFO or DEBUG")
 
-setup_logging('aesop.processor')
 init()
 
 max_lookups = int(Config.get('processor', 'concurrency', default=50))

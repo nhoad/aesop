@@ -307,9 +307,8 @@ def config_with_help(config):
 
 def main():
     from aesop.models import init
-    from aesop.utils import setup_logging, set_log_level
-    setup_logging('aesop.ui')
-    set_log_level('INFO')
+    from aesop.utils import setup_logging
+    setup_logging('aesop.ui', 'INFO')
     init()
     app.run(debug=True, host='0.0.0.0')
 

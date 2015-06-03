@@ -1,4 +1,5 @@
 import asyncio
+import os
 from urllib.parse import urlparse
 
 import aiohttp
@@ -139,16 +140,11 @@ def get(url, **kwargs):
     return r.wait_for()
 
 
-def setup_logging(name):
-    from logbook import RotatingFileHandler
+def setup_logging(name, level):
+    from logbook import RotatingFileHandler, lookup_level
     path = os.path.expanduser('~/.config/aesop/{}.log'.format(name))
-    RotatingFileHandler(path).push_application()
-
-
-def set_log_level(level):
-    import logbook
-    level = logbook.lookup_level(level)
-    logbook.default_handler.level = level
+    level = lookup_level(level)
+    RotatingFileHandler(path, level=level).push_application()
 
 
 def get_language(path):

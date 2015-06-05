@@ -100,7 +100,6 @@ def movies():
 @app.route('/movies/<int:id>', methods=['GET', 'POST'])
 def movie(id):
     if request.method == 'POST':
-        log.info(request.json)
         genres = request.json['movie'].pop('genres')
 
         Movie.update(**request.json['movie']).where(Movie.id == id).execute()

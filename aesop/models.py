@@ -44,7 +44,16 @@ class Config(BaseModel):
 
     @classmethod
     def create_default(cls):
-        pass
+        defaults = [
+            ('player', 'preferred audio', 'eng'),
+            ('player', 'preferred subtitle', 'eng'),
+            ('player', 'seek size', '15'),
+            ('processor', 'concurrency', '50'),
+            ('processor', 'video types', 'avi, mp4, mkv, ogm'),
+            ('player', 'subtitles for matching audio', '0'),
+        ]
+        for section, key, value in defaults:
+            cls.create(section=section, key=key, value=value)
 
 
 class Genre(BaseModel):

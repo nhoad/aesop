@@ -36,7 +36,7 @@ class Config(BaseModel):
     @classmethod
     def get(cls, section, key, default=Default):
         try:
-            return cls.get(cls.section == section, cls.key == key).value
+            return cls.select().where(cls.section == section, cls.key == key).get().value
         except cls.DoesNotExist:
             if default is not Default:
                 cls.create(section=section, key=key, value=str(default))

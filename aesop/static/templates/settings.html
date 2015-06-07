@@ -43,7 +43,10 @@
       </li>
       <li class="list-group-item">
         <div class="input-group">
-          <a class="inline-block label label-success" ng-click="addNewSource()"><i class="fa fa-plus"></i></a>
+          <label>
+            Add
+            <button class="form-control label label-success" ng-click="addNewSource()"><i class="fa fa-plus"></i></button>
+          </label>
           <label>
             Path
             <input class="form-control" ng-model="new_source_path">

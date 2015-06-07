@@ -7,7 +7,6 @@ Web UI
 - /modify/series/<id>
 - Playlist?
 - Season toggleWatched
-- Settings, make add new source not ugly
 - Settings, validation
 - /modify/movie/<id>, validation
 - Nice slider

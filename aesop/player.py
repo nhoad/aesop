@@ -434,7 +434,19 @@ class PlaybackMetadata:
         s = Config.get('player', 'preferred subtitle')
 
         if isoname == s:
+            audio = yield from self.player.switch_audio
+            alang = self.audio_streams.get(audio)
+            if (alang == isoname and
+                    not int(Config.get('player', 'subtitles for matching audio'))):
+                log.info('Not setting subtitle as subtitle and language match.')
+                return False
+
+            log.info('Setting subtitle to {}', isocodes.nicename(isoname))
             yield from self.player.set_subtitle(sid)
+
+            return True
+
+        return False
 
     @asyncio.coroutine
     def broadcast_now_playing(self):

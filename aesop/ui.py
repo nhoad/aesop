@@ -253,6 +253,7 @@ help_map = {
     'frequency': 'How frequently to scan for new videos',
     'theme': 'Website theme to use',
     'seek size': 'Amount of time in seconds to jump forward/backward',
+    'subtitles for matching audio': 'Should subtitles be automatically enabled if the audio and subtitles language are the same?',
 }
 
 isochoices = [dict(display='-- None --', value='-1')] + sorted([
@@ -280,6 +281,12 @@ extras_map = {
         'choices': isochoices,
         'typeahead': 'Preferred Audio Language',
         'default': '',
+    },
+    'subtitles for matching audio': {
+        'choices': {
+            '1': 'Yes',
+            '0': 'No',
+        },
     },
     'concurrency': {
         'type': 'number',

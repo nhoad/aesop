@@ -15,7 +15,6 @@ Web UI
 - Player needs a lot of love for appearance and functionality
 - Kick off update from UI.
 - Figure out why client websockets are locking up
-- Make ws:// URIs relative
 - When subtitles are downloading, show this fact
 
 Subtitle downloader

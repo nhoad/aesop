@@ -36,10 +36,10 @@ class Config(BaseModel):
     @classmethod
     def get(cls, section, key, default=Default):
         try:
-            return Config.select().where(cls.section == section, cls.key == key).get().value
-        except Config.DoesNotExist:
+            return cls.get(cls.section == section, cls.key == key).value
+        except cls.DoesNotExist:
             if default is not Default:
-                Config.create(section=section, key=key, value=str(default))
+                cls.create(section=section, key=key, value=str(default))
             return default
 
     @classmethod

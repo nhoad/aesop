@@ -147,6 +147,8 @@ class VideoPlayer(metaclass=VideoPlayerMeta):
 
             self.stdin.write(cmd.encode('utf8'))
 
+            log.debug("Running {!r}", cmd)
+
             try:
                 yield from self.stdin.drain()
             except ConnectionResetError:

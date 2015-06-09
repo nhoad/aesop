@@ -25,7 +25,6 @@ class VideoPlayerMeta(type):
         'next': ('pt_step', 1),
         'previous': ('pt_step', -1),
         'switch_subtitles': 'sub_select',
-        'toggle': 'pause',
     }
 
     _simple_commands = ['mute', 'stop']

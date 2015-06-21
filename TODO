@@ -28,6 +28,8 @@ Player
 ======
 - Figure out if there's anything distinguishing about streams with repeating
   names (e.g. channels and stuff) and display that in audio choices
+- Migrate to using mpv
+- Make sure mpv binding generates production-level code on install
 
 
 Processor

@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import os
-
 from enum import Enum
 
 from cffi import FFI
@@ -309,6 +308,19 @@ def _get_bytes(s):
     return str(s).encode('utf8')
 
 
+def _value_from_node(node):
+    if node.format == libmpv.MPV_FORMAT_DOUBLE:
+        return node.u.double_
+    elif node.format == libmpv.MPV_FORMAT_INT64:
+        return node.u.int64
+    elif node.format == libmpv.MPV_FORMAT_FLAG:
+        return node.u.flag
+    elif node.format == libmpv.MPV_FORMAT_STRING:
+        return ffi.string(node.u.string).decode('utf8')
+
+    raise ValueError('Unhandled format {}'.format(node.format))
+
+
 def _get_value(type, default=None):
     if type == Format.Float:
         c_type, format = ('double *', libmpv.MPV_FORMAT_DOUBLE)
@@ -316,10 +328,12 @@ def _get_value(type, default=None):
         c_type, format = ('int64_t *', libmpv.MPV_FORMAT_INT64)
     elif type == Format.Flag:
         c_type, format = ('int *', libmpv.MPV_FORMAT_FLAG)
+    elif type == Format.Node:
+        c_type, format = ('mpv_node *', libmpv.MPV_FORMAT_NODE)
 
     return ffi.new(c_type, default), format
 
-Format = Enum('Format', 'String Float Int Flag')
+Format = Enum('Format', 'String Float Int Flag Node')
 
 
 class Seek(Enum):
@@ -519,13 +533,42 @@ class Client:
         return command(self.mpv, 'playlist_move', src, dst)
 
     def playlist_items(self):
-        count = get_property(self.mpv, 'playlist/count', Format.Int)
+        playlist = get_property(self.mpv, 'playlist', Format.Node)
 
-        for index in range(count):
-            yield dict(
-                filename=get_property(self.mpv, 'playlist/{}/filename'.format(index), Format.String),
-                current=bool(get_property(self.mpv, 'playlist/{}/current'.format(index), Format.Flag)),
-            )
+        try:
+            for i in range(playlist.u.list.num):
+                m = playlist.u.list.values[i]
+
+                props = {}
+
+                for j in range(m.u.list.num):
+                    key = ffi.string(m.u.list.keys[j]).decode('utf8')
+
+                    value = _value_from_node(m.u.list.values[j])
+                    props[key] = value
+
+                yield props
+        finally:
+            libmpv.mpv_free_node_contents(ffi.addressof(playlist))
+
+    def track_list(self):
+        track_list = get_property(self.mpv, 'track-list', Format.Node)
+
+        try:
+            for i in range(track_list.u.list.num):
+                m = track_list.u.list.values[i]
+
+                props = {}
+
+                for j in range(m.u.list.num):
+                    key = ffi.string(m.u.list.keys[j]).decode('utf8')
+
+                    value = _value_from_node(m.u.list.values[j])
+                    props[key] = value
+
+                yield props
+        finally:
+            libmpv.mpv_free_node_contents(ffi.addressof(track_list))
 
     def sub_add(self, file, flags, title, lang):
         # support flags of select/auto/cached while also being optional

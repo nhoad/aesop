@@ -570,9 +570,24 @@ class Client:
         finally:
             libmpv.mpv_free_node_contents(ffi.addressof(track_list))
 
-    def sub_add(self, file, flags, title, lang):
-        # support flags of select/auto/cached while also being optional
-        raise NotImplementedError()
+    def video_tracks(self):
+        for track in self.track_list():
+            if track['type'] == 'video':
+                yield track
+
+    def audio_tracks(self):
+        for track in self.track_list():
+            if track['type'] == 'audio':
+                yield track
+
+    def subtitles(self):
+        for track in self.track_list():
+            if track['type'] == 'sub':
+                yield track
+
+    def sub_add(self, path):
+        # FIXME: support flags of select/auto/cached while also being optional
+        return command(self.mpv, 'sub_add', path)
 
     def sub_remove(self, sid):
         return command(self.mpv, 'sub_remove', sid)

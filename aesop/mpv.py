@@ -195,9 +195,13 @@ ffi.cdef(definitions)
 libmpv = ffi.verify('#include <mpv/client.h>', libraries=['mpv'])
 
 
-def client():
+def client(**kwargs):
     """Return an initialized client. Will be terminated upon garbage collection."""
     client = libmpv.mpv_create()
+
+    for key, value in kwargs.items():
+        set_option_string(client, key, value)
+
     r = libmpv.mpv_initialize(client)
 
     if r != 0:
@@ -471,8 +475,8 @@ class Client:
         'window-scale': (Format.Float, 'rw'),
     }
 
-    def __init__(self):
-        self.mpv = client()
+    def __init__(self, **kwargs):
+        self.mpv = client(**kwargs)
 
     def __setattr__(self, attr, value):
         if attr.replace('_', '-') in self.properties:

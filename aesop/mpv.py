@@ -631,10 +631,19 @@ class AsyncioClient(Client):
 
         loop.add_reader(self.fd, self._read_events)
 
+        self.event_queue = asyncio.Queue()
+
     def _read_events(self):
+        import asyncio
         os.read(self.fd, 256)
 
+        events = []
         while True:
             event = libmpv.mpv_wait_event(self.mpv, 0)
             if event.event_id == libmpv.MPV_EVENT_NONE:
                 break
+
+            events.append(event.event_id)
+
+        asyncio.async(asyncio.gather(*[
+            self.event_queue.put(e) for e in events]))

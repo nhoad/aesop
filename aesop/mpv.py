@@ -306,6 +306,10 @@ def get_property_string(client, name):
     return v.decode('utf8')
 
 
+def event_name(event_id):
+    return ffi.string(libmpv.mpv_event_name(event_id)).decode('utf8')
+
+
 def _get_bytes(s):
     if isinstance(s, bytes):
         return s

@@ -593,9 +593,12 @@ class Client:
             if track['type'] == 'sub':
                 yield track
 
-    def sub_add(self, path):
-        # FIXME: support flags of select/auto/cached while also being optional
-        return command(self.mpv, 'sub_add', path)
+    def sub_add(self, path, flag='cached', title='n/a', lang=''):
+        args = [path, flag, title]
+        if lang:
+            args.append(lang)
+
+        return command(self.mpv, 'sub_add', *args)
 
     def sub_remove(self, sid):
         return command(self.mpv, 'sub_remove', sid)

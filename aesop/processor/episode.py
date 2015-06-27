@@ -106,7 +106,14 @@ class AnimeLookup(TVShowLookup):
         }
         resp, json = yield from get('https://hummingbird.me/api/v1/search/anime/', params=params)
 
-        show = json[0]
+        def keyfunc(f):
+            return {
+                'TV': 0,
+                'Movie': 1,
+                'Special': 2,
+            }.get(f['show_type'], 3)
+
+        show = sorted(json, key=keyfunc)[0]
         title = show['title']
         id = show['id']
         if 'started_airing' in show:

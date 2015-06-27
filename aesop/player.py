@@ -265,7 +265,7 @@ class Server:
     def start(self):
         alang = Config.get('player', 'preferred audio', default='eng')
         slang = Config.get('player', 'preferred subtitle', default='eng')
-        vo = Config.get('player', 'video output', default='auto')
+        vo = Config.get('player', 'video output', default='vdpau,opengl-hq,x11,opengl')
         self.player = VideoPlayer(alang=alang, slang=slang, vo=vo, fs='yes')
 
         asyncio.async(self.update_per_second())

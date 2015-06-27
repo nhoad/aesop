@@ -430,10 +430,6 @@ class Server:
 
 
 def get_movie_or_tv_show(path):
-    show = TVShow(title='American Dad')
-    ep = TVShowEpisode(path=path, season=1, episode=1, show=show)
-    return ep
-
     try:
         media = TVShowEpisode.select().where(TVShowEpisode.path == path).get()
     except TVShowEpisode.DoesNotExist:

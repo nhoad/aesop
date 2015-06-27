@@ -254,7 +254,7 @@ class VideoPlayer:
             self.broadcast_available_subtitles(),
             self.broadcast_available_audio(),
             self.broadcast_subtitle(),
-            broadcast_player_property('selected_audio', str(self.client.audio)),
+            broadcast_player_property('selected_audio', str(self.audio)),
             self.broadcast_volume(),
         )
 

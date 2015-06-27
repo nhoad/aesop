@@ -364,7 +364,6 @@ class Server:
         else:
             model = TVShowEpisode
 
-        print('model', model)
         path = model.select(model.path).where(model.id == int(id)).get().path
 
         self.player.play(path, append=append)

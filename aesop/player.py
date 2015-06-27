@@ -71,6 +71,10 @@ class VideoPlayer:
         except ValueError:
             return 50
 
+    @volume.setter
+    def volume(self, amount):
+        self.client.volume = float(amount)
+
     @property
     def has_chapters(self):
         try:
@@ -110,9 +114,6 @@ class VideoPlayer:
 
     def stop(self):
         self.client.stop()
-
-    def set_volume(self, amount):
-        self.client.volume = amount
 
     def seek_backward(self, seek_size):
         if self.has_chapters:
@@ -391,7 +392,7 @@ class Server:
     @asyncio.coroutine
     def ws_volume(self, volume):
         log.debug('volume({})', volume)
-        self.player.set_volume(volume)
+        self.player.volume = volume
         yield from self.player.broadcast_volume()
 
     @asyncio.coroutine

@@ -3,6 +3,7 @@ Description=Aesop's player service
 After=network.target
 
 [Service]
+Environment=DISPLAY=:0
 ExecStart=/usr/bin/python3 -m aesop.player
 
 [Install]

@@ -6,4 +6,4 @@ After=network.target
 ExecStart=/usr/bin/python3 -m aesop.subtitles
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

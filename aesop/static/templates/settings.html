@@ -6,17 +6,23 @@
     </h4>
     <ul class="list-group">
       <li class="list-group-item" ng-repeat="config in section.values">
-        <label class="text-capitalize">
-          {{ config.key }}
-          <div ng-if="config.choices">
-            <input ng-if="!!config.typeahead" type="text" ng-model="config.value" typeahead="choice as choice.display for choice in config.choices | filter:$viewValue | limitTo:8" class="form-control">
+        <div class="input-group">
+          <label>
+            Remove
+            <button class="form-control label label-danger" ng-click="removeConfig(section, config)"><i class="fa fa-remove"></i></button>
+          </label>
+          <label class="text-capitalize">
+            {{ config.key }}
+            <div ng-if="config.choices">
+              <input ng-if="!!config.typeahead" type="text" ng-model="config.value" typeahead="choice as choice.display for choice in config.choices | filter:$viewValue | limitTo:8" class="form-control">
 
-            <select ng-if="!config.typeahead" class="form-control" ng-model="config.value" ng-options="key as value for (key, value) in config.choices">
-              <option ng-if="config.default" value="">{{ config.default }}</option>
-            </select>
-          </div>
-          <input ng-if="!config.choices" type="{{ config.type || 'text'}}" tooltip-placement="right" tooltip="{{ config.help }}" class="form-control" ng-model="config.value">
-        </label>
+              <select ng-if="!config.typeahead" class="form-control" ng-model="config.value" ng-options="key as value for (key, value) in config.choices">
+                <option ng-if="config.default" value="">{{ config.default }}</option>
+              </select>
+            </div>
+            <input ng-if="!config.choices" type="{{ config.type || 'text'}}" tooltip-placement="right" tooltip="{{ config.help }}" class="form-control" ng-model="config.value">
+          </label>
+        </div>
       </li>
     </ul>
   </div>

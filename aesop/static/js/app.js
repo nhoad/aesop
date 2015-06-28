@@ -346,6 +346,11 @@ aesopApp.controller('SettingsController', function($scope, $http) {
     $scope.new_source_path = '';
   };
 
+  $scope.removeConfig = function(section, config) {
+    var i = section.values.indexOf(config);
+    section.values.splice(i, 1);
+  };
+
   $scope.save = function() {
     $http.post('/update/');
   };

@@ -195,6 +195,8 @@ def catalog_videos(database, source, max_lookups):
 
     log.debug("Known paths {}", known_paths)
 
+    removed = 0
+
     for path in set(known_paths):
         if not os.path.exists(path):
             known_paths.remove(path)
@@ -209,6 +211,8 @@ def catalog_videos(database, source, max_lookups):
                 ep = TVShowEpisode.select().where(TVShowEpisode.path == path).get()
 
                 show = ep.show
+
+                removed += 1
 
                 with database_proxy.transaction():
                     ep.delete()
@@ -291,7 +295,7 @@ def catalog_videos(database, source, max_lookups):
     log.info("Took {:.2f} seconds to do {} lookups", end_time - start_time, len(lookups))
     log.info("{} lookups failed", lookup_failures)
 
-    return successes, lookup_failures
+    return successes, lookup_failures, removed
 
 
 def save_movie(lookup, path, genres):

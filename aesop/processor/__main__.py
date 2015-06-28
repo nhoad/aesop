@@ -31,14 +31,15 @@ sources = list(Source.select(Source.path, Source.type))
 events.info.blocking("Starting scan")
 log.info("Starting scan")
 
-total = unscanned = 0
+total = unscanned = removed = 0
 for source in sources:
-    t, u = catalog_videos(database_proxy, source, max_lookups)
+    t, u, r = catalog_videos(database_proxy, source, max_lookups)
 
     total += t
     unscanned += u
+    removed += r
 
-msg = "Scan complete. {} new items, {} could not be added.".format(total, unscanned)
+msg = "Scan complete. {} new items, {} could not be added. {} items were removed from the db".format(total, unscanned, removed)
 log.info(msg)
 events.info.blocking(msg)
 

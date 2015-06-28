@@ -212,7 +212,7 @@ class VideoPlayer:
 
     @asyncio.coroutine
     def broadcast_subtitle(self):
-        yield from broadcast_player_property('selected_subtitle', self.client.sub)
+        yield from broadcast_player_property('selected_subtitle', self.sub)
 
     @asyncio.coroutine
     def broadcast_available_audio(self):

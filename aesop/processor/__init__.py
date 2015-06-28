@@ -215,10 +215,10 @@ def catalog_videos(database, source, max_lookups):
                 removed += 1
 
                 with database_proxy.transaction():
-                    ep.delete()
+                    ep.delete().execute()
 
                     if not list(show.episodes):
-                        show.delete()
+                        show.delete().execute()
                     else:
                         if all([episode.watched for episode in show.episodes]):
                             show.watched = True

@@ -31,6 +31,10 @@
       <li class="list-group-item" ng-repeat="source in sources">
         <div class="input-group">
           <label>
+            Remove
+            <button class="form-control label label-danger" ng-click="removeSource(source)"><i class="fa fa-remove"></i></button>
+          </label>
+          <label>
             Path
             <input class="form-control" ng-model="source.path">
           </label>

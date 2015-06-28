@@ -331,6 +331,11 @@ aesopApp.controller('SettingsController', function($scope, $http) {
 
   $scope.new_source_type = 'movies';
 
+  $scope.removeSource = function(source) {
+    var i = $scope.sources.indexOf(source);
+    $scope.sources.splice(i, 1);
+  };
+
   $scope.addNewSource = function() {
     $scope.sources.push({
       'type': $scope.new_source_type,

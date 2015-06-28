@@ -200,7 +200,7 @@ def catalog_videos(database, source, max_lookups):
     for path in set(known_paths):
         if not os.path.exists(path):
             known_paths.remove(path)
-            log.info("{} does not exist, removing from database.")
+            log.info("{} does not exist, removing from database.", path)
             if model == Movie:
                 Movie.delete().where(
                     (Movie.path == path) |

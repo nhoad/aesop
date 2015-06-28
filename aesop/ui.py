@@ -257,7 +257,7 @@ help_map = {
     'video output': 'Video Output Driver. Messing with this can break things so be careful',
 }
 
-isochoices = [dict(display='-- None --', value='-1')] + sorted([
+isochoices = [dict(display='-- None --', value='0')] + sorted([
     dict(display=nicename, value=iso)
     for (iso, nicename) in isocodes.isocodes.items()
 ], key=itemgetter('display'))

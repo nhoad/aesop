@@ -254,6 +254,7 @@ help_map = {
     'theme': 'Website theme to use',
     'seek size': 'Amount of time in seconds to jump forward/backward',
     'subtitles for matching audio': 'Should subtitles be automatically enabled if the audio and subtitles language are the same?',
+    'video output': 'Video Output Driver. Messing with this can break things so be careful',
 }
 
 isochoices = [dict(display='-- None --', value='-1')] + sorted([

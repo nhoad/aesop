@@ -73,7 +73,10 @@ class VideoPlayer:
 
     @volume.setter
     def volume(self, amount):
-        self.client.volume = float(amount)
+        try:
+            self.client.volume = float(amount)
+        except ValueError:
+            pass
 
     @property
     def has_chapters(self):

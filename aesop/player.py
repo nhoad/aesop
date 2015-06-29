@@ -119,16 +119,22 @@ class VideoPlayer:
         self.client.stop()
 
     def seek_backward(self, seek_size):
-        if self.has_chapters:
-            self.client.chapters -= 1
-        else:
-            self.client.seek(-seek_size)
+        try:
+            if self.has_chapters:
+                self.client.chapters -= 1
+            else:
+                self.client.seek(-seek_size)
+        except ValueError:
+            pass
 
     def seek_forward(self, seek_size):
-        if self.has_chapters:
-            self.client.chapters += 1
-        else:
-            self.client.seek(seek_size)
+        try:
+            if self.has_chapters:
+                self.client.chapters += 1
+            else:
+                self.client.seek(seek_size)
+        except ValueError:
+            pass
 
     def load_srt_subtitle(self, path, language):
         self.client.sub_add(path, title=language, lang=language)

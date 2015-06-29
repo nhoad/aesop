@@ -69,7 +69,7 @@ class VideoPlayer:
         try:
             return self.client.volume
         except ValueError:
-            return 50
+            return None
 
     @volume.setter
     def volume(self, amount):

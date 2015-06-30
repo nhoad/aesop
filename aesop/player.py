@@ -204,7 +204,8 @@ class VideoPlayer:
 
             media = get_movie_or_tv_show(self.client.path)
             now_playing = media.title
-            log.info('now playing {}', now_playing)
+            log.info('Now playing {}', now_playing)
+            yield from events.info(now_playing)
 
         asyncio.async(asyncio.gather(
             self.broadcast_all_properties(),

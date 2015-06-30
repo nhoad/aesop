@@ -204,6 +204,8 @@ class VideoPlayer:
                 )
             elif event == libmpv.MPV_EVENT_TRACKS_CHANGED:
                 yield from self.update_track_info()
+            elif event == libmpv.MPV_EVENT_PLAYBACK_RESTART:
+                yield from self.broadcast_volume()
 
     @asyncio.coroutine
     def update_track_info(self):

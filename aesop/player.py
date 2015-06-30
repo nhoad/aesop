@@ -331,7 +331,7 @@ class Server:
                     self.player.subtitle_downloads.pop(event.language)
                     self.player.load_srt_subtitle(event.path, event.language)
             elif event.type == 'new-client':
-                yield from self.player.broadcast_all_properties()
+                asyncio.async(self.player.broadcast_all_properties())
             elif event.type == 'available-subtitles':
                 current_languages = set(
                     s.get('lang', 'Unknown Language') for s in self.player.subtitles()
@@ -342,7 +342,7 @@ class Server:
                         continue
                     nicename = isocodes.nicename(lang) if isocodes.exists(lang) else '{} (Unknown)'.format(lang)
                     self.player.subtitle_downloads[lang] = '{} (Download)'.format(nicename)
-                yield from self.player.broadcast_available_subtitles()
+                asyncio.async(self.player.broadcast_available_subtitles())
 
     @asyncio.coroutine
     def handle_websocket(self, websocket, path):

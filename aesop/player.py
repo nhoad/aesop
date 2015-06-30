@@ -226,8 +226,8 @@ class VideoPlayer:
     @asyncio.coroutine
     def broadcast_available_audio(self):
         audio_streams = [
-            dict(value=aid, display=isocodes.nicename(alang))
-            for (aid, alang) in self.client.audio_tracks()
+            dict(value=track['id'], display=isocodes.nicename(track['lang']))
+            for track in self.client.audio_tracks()
         ]
 
         if len(audio_streams) <= 1:
@@ -240,8 +240,8 @@ class VideoPlayer:
     @asyncio.coroutine
     def broadcast_available_subtitles(self):
         subtitles = [
-            dict(value=sid, display=isocodes.nicename(slang))
-            for (sid, slang) in self.client.subtitles()
+            dict(value=track['id'], display=isocodes.nicename(track['lang']))
+            for track in self.client.subtitles()
         ]
 
         if self.subtitle_downloads:

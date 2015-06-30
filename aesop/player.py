@@ -192,16 +192,20 @@ class VideoPlayer:
             log.debug('mpv event received {}', event_name(event))
 
             if event == libmpv.MPV_EVENT_START_FILE:
+                yield from self.update_playback_info(new_file=True)
+            elif event == libmpv.MPV_EVENT_TRACKS_CHANGED:
                 yield from self.update_playback_info()
 
     @asyncio.coroutine
-    def update_playback_info(self):
-        self.subtitle_downloads.clear()
-        self.add_available_srt_subtitles()
+    def update_playback_info(self, new_file=False):
+        if new_file:
+            self.subtitle_downloads.clear()
+            self.add_available_srt_subtitles()
 
-        media = get_movie_or_tv_show(self.client.path)
-        now_playing = media.title
-        log.info('now playing {}', now_playing)
+            media = get_movie_or_tv_show(self.client.path)
+            now_playing = media.title
+            log.info('now playing {}', now_playing)
+
         asyncio.async(asyncio.gather(
             self.broadcast_all_properties(),
             events.broadcast('list-subtitles', path=self.client.path),

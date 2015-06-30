@@ -203,10 +203,7 @@ class VideoPlayer:
         now_playing = media.title
         log.info('now playing {}', now_playing)
         asyncio.async(asyncio.gather(
-            self.broadcast_now_playing(),
-            self.broadcast_volume(),
-            self.broadcast_available_subtitles(),
-            self.broadcast_available_audio(),
+            self.broadcast_all_properties(),
             events.broadcast('list-subtitles', path=self.client.path),
         ))
 

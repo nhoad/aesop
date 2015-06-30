@@ -400,6 +400,9 @@ class Server:
 
     @asyncio.coroutine
     def ws_volume(self, volume):
+        if volume is None:
+            yield from self.player.broadcast_volume()
+            return
         log.debug('volume({})', volume)
         self.player.volume = volume
         yield from self.player.broadcast_volume()

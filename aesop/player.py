@@ -399,7 +399,7 @@ class Server:
     @asyncio.coroutine
     def ws_stop(self):
         self.player.stop()
-        yield from self.player.broadcast_all_properties()
+        yield from broadcast_player_property('now_playing', None)
 
     def ws_queue(self, id, type):
         self.ws_play(id, type, append=True)

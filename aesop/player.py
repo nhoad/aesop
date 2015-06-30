@@ -191,7 +191,7 @@ class VideoPlayer:
 
             log.debug('mpv event received {}', event_name(event))
 
-            if event == libmpv.MPV_EVENT_START_FILE:
+            if event == libmpv.MPV_EVENT_FILE_LOADED:
                 self.subtitle_downloads.clear()
                 self.add_available_srt_subtitles()
 

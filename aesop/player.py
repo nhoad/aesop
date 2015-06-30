@@ -192,25 +192,28 @@ class VideoPlayer:
             log.debug('mpv event received {}', event_name(event))
 
             if event == libmpv.MPV_EVENT_START_FILE:
-                yield from self.update_playback_info(new_file=True)
+                self.subtitle_downloads.clear()
+                self.add_available_srt_subtitles()
+
+                media = get_movie_or_tv_show(self.client.path)
+                now_playing = media.title
+                log.info('Now playing {}', now_playing)
+                yield from asyncio.gather(
+                    events.info(now_playing),
+                    self.broadcast_now_playing(),
+                )
             elif event == libmpv.MPV_EVENT_TRACKS_CHANGED:
-                yield from self.update_playback_info()
+                yield from self.update_track_info()
 
     @asyncio.coroutine
-    def update_playback_info(self, new_file=False):
-        if new_file:
-            self.subtitle_downloads.clear()
-            self.add_available_srt_subtitles()
-
-            media = get_movie_or_tv_show(self.client.path)
-            now_playing = media.title
-            log.info('Now playing {}', now_playing)
-            yield from events.info(now_playing)
-
-        asyncio.async(asyncio.gather(
-            self.broadcast_all_properties(),
+    def update_track_info(self):
+        yield from asyncio.gather(
+            self.broadcast_available_subtitles(),
+            self.broadcast_available_audio(),
+            self.broadcast_subtitle(),
+            broadcast_player_property('selected_audio', str(self.audio)),
             events.broadcast('list-subtitles', path=self.client.path),
-        ))
+        )
 
         if (self.sub != 0 and
                 self.audio_language() != 'unk' and

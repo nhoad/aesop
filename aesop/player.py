@@ -31,6 +31,18 @@ class VideoPlayer:
         except ValueError:
             return 0
 
+    def sub_language(self):
+        for track in self.client.subtitles():
+            if track.get('selected', 0):
+                return track.get('lang', 'unk')
+        return 'unk'
+
+    def audio_language(self):
+        for track in self.client.audio_tracks():
+            if track.get('selected', 0):
+                return track.get('lang', 'unk')
+        return 'unk'
+
     @property
     def sub(self):
         try:
@@ -199,7 +211,8 @@ class VideoPlayer:
         ))
 
         if (self.sub != 0 and
-                self.audio == self.sub and
+                self.audio_language() != 'unk' and
+                self.audio_language() == self.sub_language() and
                 not int(Config.get('player', 'subtitles for matching audio'))):
             log.info("Disabling subtitle as it's the same as the language")
             self.client.sub = 0

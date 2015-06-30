@@ -84,7 +84,7 @@ def listener(*events):
 class EventListener:
     def __init__(self, event_types):
         self.event_types = event_types
-        self.waiters = []
+        self.waiter = None
 
     @asyncio.coroutine
     def start(self):
@@ -111,15 +111,16 @@ class EventListener:
                 self.connection.close()
                 event = None
 
-            waiters, self.waiters = self.waiters, []
-
-            for waiter in waiters:
-                waiter.set_result(event)
+            if self.waiter is not None:
+                self.waiter.set_result(event)
+                self.waiter = None
 
     @asyncio.coroutine
     def wait(self):
-        self.waiters.append(asyncio.Future())
-        return self.waiters[-1]
+        if self.waiter is not None:
+            raise ValueError("Only one waiter at a time")
+        self.waiter = asyncio.Future()
+        return self.waiter
 
     def close(self):
         self.connection.close()

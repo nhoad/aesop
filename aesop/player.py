@@ -200,7 +200,7 @@ class VideoPlayer:
                 log.info('Now playing {}', now_playing)
                 yield from asyncio.gather(
                     events.info(now_playing),
-                    self.broadcast_now_playing(),
+                    broadcast_player_property('now_playing', now_playing)
                 )
             elif event == libmpv.MPV_EVENT_TRACKS_CHANGED:
                 yield from self.update_track_info()

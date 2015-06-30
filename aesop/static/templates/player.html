@@ -26,7 +26,7 @@
       <div ng-if="Player.now_playing && !!Player.available_audio" class="input-group">
         <label>
           Audio
-          <select class="form-control" ng-options="choice.value as choice.display for choice in Player.available_audio" ng-change="changeAudio()" ng-model="selected_audio">
+          <select class="form-control" ng-options="choice.value as choice.display for choice in Player.available_audio" ng-change="changeAudio()" ng-model="Player.selected_audio">
             <option value="">-- None --</option>
           </select>
         </label>

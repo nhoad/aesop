@@ -11,8 +11,7 @@
 </div>
 <div class="row">
   <div class="col-xm-6">
-    {{ Player.volume }}
-    <input ng-show="Player.volume !== null" type="range" ng-model="Player.volume">
+    <input ng-hide="Player.volume === null || Player.volume === undefined" type="range" ng-model="Player.volume">
 
     <form ng-if="Player.now_playing && !!Player.available_subtitles" class="form-horizontal">
       <div class="input-group">

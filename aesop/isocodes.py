@@ -464,6 +464,7 @@ isocodes = {
     'ukr': 'Ukrainian',
     'umb': 'Umbundu',
     'und': 'Undetermined',
+    'unk': 'Unknown',  # gnarly hack I'm sorry
     'urd': 'Urdu',
     'uzb': 'Uzbek',
     'vai': 'Vai',

@@ -133,7 +133,7 @@ class VideoPlayer:
     def seek_backward(self, seek_size):
         try:
             if self.has_chapters:
-                self.client.chapters -= 1
+                self.client.chapter -= 1
             else:
                 self.client.seek(-seek_size)
         except ValueError:
@@ -142,7 +142,7 @@ class VideoPlayer:
     def seek_forward(self, seek_size):
         try:
             if self.has_chapters:
-                self.client.chapters += 1
+                self.client.chapter += 1
             else:
                 self.client.seek(seek_size)
         except ValueError:

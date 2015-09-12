@@ -220,7 +220,7 @@ def command(client, *args):
 
 def set_option(client, name, type, value):
     if type == Format.String:
-        return set_option_string(client, name)
+        return set_option_string(client, name, value)
     value, format = _get_value(type, value)
 
     r = libmpv.mpv_set_option(client, _get_bytes(name), format, value)
@@ -247,7 +247,7 @@ def set_option_string(client, name, value):
 
 def set_property(client, name, type, value):
     if type == Format.String:
-        return set_property_string(client, name)
+        return set_property_string(client, name, value)
 
     value, format = _get_value(type, value)
 
